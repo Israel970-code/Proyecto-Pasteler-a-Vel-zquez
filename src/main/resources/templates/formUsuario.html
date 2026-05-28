@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Editar Usuario</title>
+
+<style>
+body{
+    font-family:'Segoe UI';
+    background:#fff6f9;
+}
+
+form{
+    width:400px;
+    margin:50px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+input{
+    width:100%;
+    padding:8px;
+    margin:8px 0;
+}
+
+button{
+    background:#ff8fb1;
+    color:white;
+    border:none;
+    padding:10px;
+    width:100%;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="text-align:center;">Editar Usuario</h2>
+
+<form action="/admin/guardar" method="post">
+
+    <input type="hidden" name="id" th:value="${usuarioEditar.id}">
+
+    <input type="text" name="nombre" th:value="${usuarioEditar.nombre}">
+    <input type="text" name="email" th:value="${usuarioEditar.email}">
+    <input type="text" name="telefono" th:value="${usuarioEditar.telefono}">
+    <input type="text" name="direccion" th:value="${usuarioEditar.direccion}">
+    <input type="text" name="password" th:value="${usuarioEditar.password}">
+    <input type="text" name="rol" th:value="${usuarioEditar.rol}">
+
+    <button type="submit">Guardar cambios</button>
+
+</form>
+
+</body>
+</html>

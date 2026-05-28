@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Pedidos - Pastelería Velázquez</title>
+
+        <style>
+
+            body{
+                font-family: 'Segoe UI', sans-serif;
+                background: #fff6f9;
+                margin:0;
+                padding:0;
+            }
+
+            /* Cabecera */
+            h1{
+                background:#ff8fb1;
+                color:white;
+                padding:20px;
+                text-align:center;
+                margin:0;
+            }
+
+            /* Contenedor */
+            .container{
+                width:80%;
+                margin:auto;
+                margin-top:30px;
+            }
+
+            /* Botón nuevo pedido */
+            .nuevo{
+                display:inline-block;
+                background:#ff8fb1;
+                color:white;
+                padding:10px 15px;
+                text-decoration:none;
+                border-radius:8px;
+                margin-bottom:15px;
+            }
+
+            .nuevo:hover{
+                background:#ff6f9a;
+            }
+
+            /* Tabla */
+            table{
+                width:100%;
+                border-collapse:collapse;
+                background:white;
+                box-shadow:0px 3px 10px rgba(0,0,0,0.1);
+            }
+
+            th{
+                background:#ffd6e0;
+            }
+
+            th,td{
+                padding:10px;
+                text-align:center;
+            }
+
+            tr:nth-child(even){
+                background:#fff2f6;
+            }
+
+            /* Botones */
+            .editar{
+                color:#ff6f9a;
+                text-decoration:none;
+                font-weight:bold;
+            }
+
+            .eliminar{
+                color:#e63946;
+                text-decoration:none;
+                font-weight:bold;
+            }
+
+            .topbar{
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                background:#ffd6e0;
+                padding:12px 20px;
+                border-bottom:2px solid #ff8fb1;
+                font-family:'Segoe UI', sans-serif;
+            }
+
+            .topbar .bienvenida{
+                font-weight:bold;
+                color:#444;
+            }
+
+            .topbar b{
+                color:#ff4f87;
+            }
+
+            .topbar a{
+                background:#ff8fb1;
+                color:white;
+                padding:6px 12px;
+                border-radius:6px;
+                text-decoration:none;
+                font-size:14px;
+            }
+
+            .topbar a:hover{
+                background:#ff6f9a;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div class="topbar">
+            <div class="bienvenida">
+                👋 Bienvenido, <b th:text="${usuario.nombre}"></b>
+            </div>
+
+            <a href="/logout">Cerrar sesión</a>
+        </div>
+
+        <h1>🍰 Pedidos Pastelería Velázquez</h1>
+
+        <div class="container">
+
+            <a class="nuevo" th:href="@{/nuevo}">+ Nuevo pedido</a>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Cantidad</th>
+                        <th>Producto</th>
+                        <th>Fecha pedido</th>
+                        <th>Fecha entrega</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr th:each="p : ${listapedidos}">
+                        <td th:text="${p.id}"></td>
+                        <td th:text="${p.contacto.nombre}"></td>
+                        <td th:text="${p.contacto.direccion}"></td>
+                        <td th:text="${p.cantidad}"></td>
+                        <td th:text="${p.tipoProducto}"></td>
+                        <td th:text="${#temporals.format(p.fecha1, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#temporals.format(p.fecha2, 'dd/MM/yyyy')}"></td>
+
+                        <td>
+                            <a class="editar" th:href="@{/editar/{id}(id=${p.id})}">✏️ Editar</a> |
+                            <a class="eliminar"
+                               th:href="@{/eliminar/{id}(id=${p.id})}"
+                               onclick="return confirm('¿Eliminar pedido?');">
+                                🗑️ Eliminar
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </body>
+</html>

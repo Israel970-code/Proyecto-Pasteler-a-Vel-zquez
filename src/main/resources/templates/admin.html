@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Admin - Usuarios</title>
+
+<style>
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff6f9;
+    margin:0;
+}
+
+h1{
+    background:#ff8fb1;
+    color:white;
+    padding:20px;
+    text-align:center;
+    margin:0;
+}
+
+.container{
+    width:80%;
+    margin:auto;
+    margin-top:30px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0px 3px 10px rgba(0,0,0,0.1);
+}
+
+th{
+    background:#ffd6e0;
+}
+
+th,td{
+    padding:10px;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#fff2f6;
+}
+
+.editar{
+    color:#ff6f9a;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.eliminar{
+    color:#e63946;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#ffd6e0;
+    padding:12px 20px;
+}
+
+.topbar a{
+    background:#ff8fb1;
+    color:white;
+    padding:6px 12px;
+    border-radius:6px;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+    <div>👑 Admin: <b th:text="${usuario.nombre}"></b></div>
+    <a href="/logout">Cerrar sesión</a>
+</div>
+
+<h1>Usuarios registrados</h1>
+
+<div class="container">
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="u : ${listaUsuarios}">
+            <td th:text="${u.id}"></td>
+            <td th:text="${u.nombre}"></td>
+            <td th:text="${u.email}"></td>
+            <td th:text="${u.telefono}"></td>
+            <td th:text="${u.direccion}"></td>
+            <td th:text="${u.rol}"></td>
+
+            <td>
+                <a class="editar"
+                   th:href="@{/admin/editar/{id}(id=${u.id})}">
+                   ✏️ Editar
+                </a> |
+
+                <a class="eliminar"
+                   th:href="@{/admin/eliminar/{id}(id=${u.id})}"
+                   onclick="return confirm('¿Eliminar usuario?');">
+                   🗑️ Eliminar
+                </a>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+</div>
+
+</body>
+</html>

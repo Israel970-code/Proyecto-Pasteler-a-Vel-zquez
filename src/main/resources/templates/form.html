@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Administrador - Pastelería</title>
+
+<style>
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff6f9;
+}
+
+h1{
+    background:#ff8fb1;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.container{
+    width:80%;
+    margin:auto;
+    margin-top:30px;
+}
+
+.nuevo{
+    display:inline-block;
+    background:#ff8fb1;
+    color:white;
+    padding:10px;
+    border-radius:8px;
+    text-decoration:none;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th{
+    background:#ffd6e0;
+}
+
+th,td{
+    padding:10px;
+    text-align:center;
+}
+
+.editar{
+    color:#ff6f9a;
+}
+
+.eliminar{
+    color:red;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    background:#ffd6e0;
+    padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+    <div>👑 Admin: <b th:text="${usuario.nombre}"></b></div>
+    <a href="/logout">Cerrar sesión</a>
+</div>
+
+<h1>Panel de Administración</h1>
+
+<div class="container">
+
+    <a class="nuevo" th:href="@{/nuevo}">+ Nuevo pedido</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Dirección</th>
+                <th>Cantidad</th>
+                <th>Producto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="p : ${listapedidos}">
+                <td th:text="${p.id}"> ID </td>
+                <td th:text="${p.contacto.nombre}">Nombre</td>
+                <td th:text="${p.contacto.direccion}"> Direccion</td>
+                <td th:text="${p.cantidad}">Cantidad</td>
+                <td th:text="${p.tipoProducto}">Tipo de Producto</td>
+
+                <td>
+                    <a class="editar" th:href="@{/editar/{id}(id=${p.id})}">Editar</a> |
+                    <a class="eliminar" th:href="@{/eliminar/{id}(id=${p.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
